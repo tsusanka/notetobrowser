@@ -34,7 +34,7 @@ orm:
 migrations:
     dir: %migrationsPath%
     driver: mysql
-    dbal: dibi
+    dbal: nextras
 
 kdyby.console:
 	#commands:
@@ -46,3 +46,4 @@ services:
 # security
 	tokenGenerator: App\Authentication\TokenGenerator(%tokenLength%)
 
+	nextras.connection: Nextras\Dbal\Connection(%database%)

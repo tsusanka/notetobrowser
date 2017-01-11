@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "55efaa4f2fe915fb1c3af44b5ad25bb1",
-    "content-hash": "0f72062a265580df7b6dc1fbc9267c1b",
+    "hash": "b95d348fe9e0c1d93db961750eb8f1b6",
+    "content-hash": "bba21ef5cce859dd9c57bfa6d241eba0",
     "packages": [
         {
             "name": "kdyby/console",
@@ -1427,42 +1427,48 @@
         },
         {
             "name": "nextras/migrations",
-            "version": "v3.0.4",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nextras/migrations.git",
-                "reference": "dba650957584d3a8899c820e76fd8d5b1c4a5a60"
+                "reference": "9a6d21eadee4248531ac95d4d157c3539d6992aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nextras/migrations/zipball/dba650957584d3a8899c820e76fd8d5b1c4a5a60",
-                "reference": "dba650957584d3a8899c820e76fd8d5b1c4a5a60",
+                "url": "https://api.github.com/repos/nextras/migrations/zipball/9a6d21eadee4248531ac95d4d157c3539d6992aa",
+                "reference": "9a6d21eadee4248531ac95d4d157c3539d6992aa",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4"
             },
             "require-dev": {
-                "dibi/dibi": "~2.3",
+                "dibi/dibi": "~3.0",
+                "dibi/dibi-legacy-2.x": "~2.3",
+                "doctrine/cache": "~1.5",
                 "doctrine/dbal": "~2.5",
+                "doctrine/orm": "~2.5",
                 "ext-openssl": "*",
                 "mockery/mockery": "~0.9",
                 "nette/database": "~2.2",
-                "nette/di": "~2.3",
+                "nette/di": "~2.3.12 | ~2.4",
                 "nette/tester": "~1.4",
                 "nette/utils": "~2.3",
-                "nextras/dbal": "@dev",
-                "symfony/console": "~2.6"
+                "nextras/dbal": "~1.0 | ~2.0",
+                "symfony/console": "~2.6 | ~3.0"
             },
             "suggest": {
                 "dibi/dibi": "to use DibiAdapter",
+                "doctrine/dbal": "to use DoctrineAdapter",
+                "doctrine/orm": "to generate migrations with Doctrine SchemaTool",
                 "nette/database": "to use NetteAdapter",
-                "nextras/dbal": "to use NextrasAdapter"
+                "nextras/dbal": "to use NextrasAdapter",
+                "symfony/console": "to use Symfony commands"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -1479,7 +1485,7 @@
                 "BSD-3-Clause"
             ],
             "description": "Database migrations runner",
-            "time": "2016-01-14 17:52:41"
+            "time": "2017-01-07 21:28:32"
         },
         {
             "name": "nextras/orm",
@@ -3143,7 +3149,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "nextras/migrations": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

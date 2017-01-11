@@ -44,7 +44,7 @@ class RestRoute extends Route
 			$httpMethod = 'GET';
 		}
 
-		if (($this->flags & self::RESTFUL) == self::RESTFUL)
+		if (($this->getFlags() & self::RESTFUL) == self::RESTFUL)
 		{
 			$presenterRequest = parent::match($httpRequest);
 			if ($presenterRequest != NULL) {
@@ -59,27 +59,27 @@ class RestRoute extends Route
 			}
 		}
 
-		if (($this->flags & self::METHOD_GET) === self::METHOD_GET && $httpMethod !== 'GET')
+		if (($this->getFlags() & self::METHOD_GET) === self::METHOD_GET && $httpMethod !== 'GET')
 		{
 			return NULL;
 		}
 
-		if (($this->flags & self::METHOD_POST) === self::METHOD_POST && $httpMethod !== 'POST')
+		if (($this->getFlags() & self::METHOD_POST) === self::METHOD_POST && $httpMethod !== 'POST')
 		{
 			return NULL;
 		}
 
-		if (($this->flags & self::METHOD_PUT) === self::METHOD_PUT && $httpMethod !== 'PUT')
+		if (($this->getFlags() & self::METHOD_PUT) === self::METHOD_PUT && $httpMethod !== 'PUT')
 		{
 			return NULL;
 		}
 
-		if (($this->flags & self::METHOD_DELETE) === self::METHOD_DELETE && $httpMethod !== 'DELETE')
+		if (($this->getFlags() & self::METHOD_DELETE) === self::METHOD_DELETE && $httpMethod !== 'DELETE')
 		{
 			return NULL;
 		}
 
-		if (($this->flags & self::METHOD_PATCH) === self::METHOD_PATCH && $httpMethod !== 'PATCH')
+		if (($this->getFlags() & self::METHOD_PATCH) === self::METHOD_PATCH && $httpMethod !== 'PATCH')
 		{
 			return NULL;
 		}

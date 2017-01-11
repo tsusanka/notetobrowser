@@ -3,7 +3,7 @@
   "require": {
     "php": ">=7.0",
     "nette/nette": "~2.4.0",
-    "nextras/migrations": "~3.0",
+    "nextras/migrations": "dev-master",
     "nextras/orm": "~2.2.0",
     "kdyby/console": "~2.6.0"
   },
