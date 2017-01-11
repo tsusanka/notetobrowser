@@ -1,0 +1,48 @@
+#
+# SECURITY WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+#
+# If you don't protect this directory from direct web access, anybody will be able to see your passwords.
+# http://nette.org/security-warning
+#
+parameters:
+	appNamespace: App
+	tokenLength: 20
+	migrationsPath: %appDir%/../migrations
+
+php:
+	date.timezone: Europe/Prague
+	session.save_path: "%tempDir%/sessions"
+	# zlib.output_compression: yes
+
+
+application:
+	errorPresenter: Error
+	mapping:
+		*: App\*\*Presenter
+
+di:
+	accessors: on
+
+extensions:
+    kdyby.console: Kdyby\Console\DI\ConsoleExtension
+    migrations: Nextras\Migrations\Bridges\NetteDI\MigrationsExtension
+    orm: Nextras\Orm\Bridges\NetteDI\OrmExtension
+
+orm:
+    model: App\Orm
+
+migrations:
+    dir: %migrationsPath%
+    driver: mysql
+    dbal: dibi
+
+kdyby.console:
+	#commands:
+	#	- Bin\Commands\SchoolsUpdateCommand
+
+services:
+	router: App\Router
+
+# security
+	tokenGenerator: App\Authentication\TokenGenerator(%tokenLength%)
+

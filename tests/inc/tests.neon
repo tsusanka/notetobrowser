@@ -1,0 +1,16 @@
+
+parameters:
+
+	testDbPrefix: notetobrowser_test_
+	host: notetobrowser.l/
+
+	migrations:
+		# vypne migrace při testech. testy poběží na výchozí databázi (pak nemusí procházet některé testy!)
+		enabled: TRUE
+		path: ../migrations/
+		dropDatabaseOnSuccess: TRUE
+		dropDatabaseOnFailure: TRUE
+
+
+session:
+	autoStart: true

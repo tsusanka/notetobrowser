@@ -1,0 +1,17 @@
+# Sample local config - copy this into config.local.neon and change accordingly
+
+parameters:
+	database:
+		driver: mysqli
+		host: localhost
+		username:
+		password:
+		database:
+		charset: utf8
+		sqlmode: TRADITIONAL
+		profiler: on
+
+	https: TRUE
+
+	api:
+		secretToken: NULL # secret API token, NULL for no check
