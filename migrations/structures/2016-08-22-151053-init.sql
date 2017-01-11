@@ -2,9 +2,9 @@
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `hash` varchar(255) NOT NULL,
-  `registerd_at` datetime NOT NULL,
+  `registered_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UNIQ_8D93D649D1B862B8` (`hash`),
+  UNIQUE KEY `UNIQ_8D93D649D1B862B8` (`hash`)
 );
 
 CREATE TABLE `notes` (
