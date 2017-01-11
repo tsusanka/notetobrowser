@@ -9,11 +9,10 @@ CREATE TABLE `users` (
 
 CREATE TABLE `notes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(255) NOT NULL,
-  `url` longtext NOT NULL,
+  `content` longtext NOT NULL,
   `created_at` datetime NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_CFBDFA14A76ED395` (`user_id`),
-  CONSTRAINT `FK_CFBDFA14A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  CONSTRAINT `FK_CFBDFA14A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 );
