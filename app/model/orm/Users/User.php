@@ -10,7 +10,7 @@ use Nextras\Orm\Relationships\OneHasMany;
 /**
  * @property int $id {primary}
  * @property string $hash
- * @property DateTime $registeredAt
+ * @property DateTime $registeredAt {default now}
  *
  * @property OneHasMany|Note[] $notes {1:m Note::$user, orderBy=[createdAt=DESC]}
  */

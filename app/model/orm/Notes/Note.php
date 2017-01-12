@@ -9,7 +9,7 @@ use Nette\Utils\DateTime;
 /**
  * @property int $id {primary}
  * @property string $content
- * @property DateTime $createdAt
+ * @property DateTime $createdAt {default now}
  *
  * @property User $user {m:1 User::$notes}
  */
