@@ -13,4 +13,15 @@ final class UsersRepository extends Repository
 		return [User::class];
 	}
 
+	/**
+	 * @param $hash
+	 * @return User|NULL
+	 */
+	public function getByHash($hash)
+	{
+		return $this->getBy([
+			'hash' => $hash,
+		]);
+	}
+
 }
