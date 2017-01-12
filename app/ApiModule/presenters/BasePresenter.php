@@ -25,10 +25,6 @@ abstract class BasePresenter extends RootBasePresenter
 	{
 		parent::startup();
 
-		if ($this->context->parameters['https'] && !$this->getHttpRequest()->secured) {
-			$this->sendErrorResponse(ApiResponse::S403_1_SSL_REQUIRED, 'HTTPS is required.');
-		}
-
 		$apiParams = $this->context->parameters['api'];
 		if ($apiParams['secretToken'] !== NULL && $apiParams['secretToken'] !== $this->getHttpRequest()->getHeader('X-Api-Token')) {
 			$this->sendErrorResponse(ApiResponse::S401_UNAUTHORIZED, 'Authorization failed, wrong secret api token.');

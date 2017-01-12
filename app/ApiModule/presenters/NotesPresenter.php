@@ -2,14 +2,18 @@
 
 namespace App\Api;
 
-use Nette\Utils\Strings;
 use App\Note;
+use App\Orm;
 
 
 class NotesPresenter extends BasePresenter
 {
 
-	public function actionFetch()
+	/** @var Orm @inject */
+	public $orm;
+
+
+	public function actionDefault()
 	{
 		/** @var Note[] $notes */
 		$notes = $this->orm->notes->findAll();
@@ -37,8 +41,8 @@ class NotesPresenter extends BasePresenter
 	{
 		return [
 			'id' => $note->id,
-			'title' => $note->title,
-			'url' => $note->url,
+			'content' => $note->content,
+			'createdAt' => $note->createdAt,
 		];
 	}
 

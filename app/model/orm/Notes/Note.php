@@ -8,8 +8,10 @@ use Nette\Utils\DateTime;
 
 /**
  * @property int $id {primary}
- * @property string $url
+ * @property string $content
  * @property DateTime $createdAt
+ *
+ * @property User $user {m:1 User::$notes}
  */
 class Note extends Entity
 {
