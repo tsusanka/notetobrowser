@@ -8,10 +8,11 @@ namespace Tests\Integration\Api;
 class NotesTest extends ApiTestCase
 {
 
-	public function testFetch()
+	public function testDefault()
 	{
-		$response = $this->sendApiRequest('GET', 'notes/fetch', NULL);
+		$response = $this->sendApiRequest('GET', 'notes', NULL);
 		$this->assertSuccessResponse($response);
+		$this->assertSame($response->body[0]->content, 'eur');
 		$this->assertSame(count($response->body), 5);
 	}
 

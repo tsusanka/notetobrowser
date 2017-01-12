@@ -2,16 +2,13 @@
 
 namespace Tests;
 
-use App;
 use Nette;
-use DibiConnection;
+use App\Orm;
+use Nextras\Dbal\Connection;
 
 
 /**
  * Base class for all test cases
- *
- * @property-read App\RepositoryContainer $orm
- * @property-read DibiConnection $dibi
  */
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
@@ -28,16 +25,16 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 		return $this->context;
 	}
 
-	/** @return Ovozel\RepositoryContainer */
+	/** @return Orm */
 	public function getOrm()
 	{
 		return $this->getContext()->getService('orm');
 	}
 
-	/** @return DibiConnection */
-	public function getDibi()
+	/** @return Connection */
+	public function getConnection()
 	{
-		return $this->getContext()->getService('dibi.connection');
+		return $this->getContext()->getService('nextras.connection');
 	}
 
 
@@ -45,7 +42,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 		$db = $this->getContext()->parameters['database']['database'];
-		$this->getDibi()->query('USE %n', $db);
+		$this->getConnection()->query('USE %table', $db);
 	}
 
 

@@ -17,9 +17,6 @@ abstract class IntegrationTestCase extends TestCase
 		$loader->runMigrations();
 	}
 
-	/**
-	 * Smaže DB, pokud řečeno v configu.
-	 */
 	protected function tearDown()
 	{
 		parent::tearDown();
@@ -32,7 +29,7 @@ abstract class IntegrationTestCase extends TestCase
 
 		if ($dropDb)
 		{
-			$this->getDibi()->query('DROP DATABASE IF EXISTS %n', $this->context->parameters['testDbName']);
+			$this->getConnection()->query('DROP DATABASE IF EXISTS %table', $this->context->parameters['testDbName']);
 			$this->context->parameters['testDbName'] = NULL;
 		}
  	}

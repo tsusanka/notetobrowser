@@ -4,7 +4,8 @@ namespace Tests;
 
 use Nette\DI\Container;
 use Nette\Object;
-use Nextras\Migrations\Bridges\Dibi\DibiAdapter;
+use Nextras\Dbal\Connection;
+use Nextras\Migrations\Bridges\NextrasDbal\NextrasAdapter;
 use Nextras\Migrations\Drivers\MySqlDriver;
 use Nextras\Migrations\Engine\Runner;
 use Nextras\Migrations\Entities\Group;
@@ -25,10 +26,14 @@ class TestsMigrationsLoader extends Object
 	/** @var IDriver */
 	private $driver;
 
+	/** @var Connection */
+	private $dbal;
+
 
 	public function __construct(Container $context)
 	{
 		$this->context = $context;
+		$this->dbal = $this->context->getService('nextras.connection');
 	}
 
 
@@ -36,33 +41,27 @@ class TestsMigrationsLoader extends Object
 	{
 		if (!$this->context->parameters['migrations']['enabled']) return NULL;
 
-		$connection = $this->context->getService('dibi.connection');
 		$dbNamePrefix = $this->context->parameters['testDbPrefix'] . date('Ymd_His') . '_';
 		$i = 1;
-		do
-		{
+		do {
 			$dbName = $dbNamePrefix . $i;
 			$i++;
-		}
-		while (
-		$connection->query('SHOW DATABASES WHERE %n', 'Database', ' = %s', $dbName)
-			->count()
-		);
-		$connection->query('CREATE DATABASE %n', $dbName);
-		$connection->query('USE %n', $dbName);
+		} while ($this->dbal->query('SHOW DATABASES WHERE %table', 'Database', ' = %s', $dbName)->fetchField());
+		$this->dbal->query('CREATE DATABASE %table', $dbName);
+		$this->dbal->query('USE %table', $dbName);
 
 		$this->context->parameters['testDbName'] = $dbName;
 	}
 
 	/**
-	 * Vytvoří DB a naplní testovacími daty.
+	 * Creates DB and fills with dummy data.
 	 */
 	public function runMigrations()
 	{
 		$this->createDb();
 
-		$dibiAdapter = new DibiAdapter($this->context->getService('dibi.connection'));
-		$this->driver = new MySqlDriver($dibiAdapter);
+		$adapter = new NextrasAdapter($this->dbal);
+		$this->driver = new MySqlDriver($adapter);
 
 		$runner = new Runner($this->driver, new DevNull());
 

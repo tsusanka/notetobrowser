@@ -33,7 +33,7 @@ return function ($params = []) {
 
 	// tests
 	if ($configurator->isDebugMode() && isset($_GET['testDbName'])) {
-		$container->getService('dibi.connection')->query('USE %n', $_GET['testDbName']);
+		$container->getService('nextras.connection')->query('USE %table', $_GET['testDbName']);
 		$container->parameters['database']['database'] = $_GET['testDbName'];
 	}
 
