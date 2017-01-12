@@ -13,3 +13,6 @@ parameters:
 
 	api:
 		secretToken: NULL # secret API token, NULL for no check
+
+migrations:
+    withDummyData: FALSE # set to true on local
