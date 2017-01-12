@@ -7,12 +7,13 @@ use App\Api\ApiResponse;
 use Nette\Utils\Json;
 
 
-abstract class ApiTestCase extends IntegrationTestCase   {
+abstract class ApiTestCase extends IntegrationTestCase
+{
 
-	/** @var array špatné HTTP hlavičky pro požadavky */
+	/** @var [] */
 	protected $failingHeaders;
 
-	/** @var array dobré HTTP hlavičky pro požadavky */
+	/** @var [] */
 	protected $passingHeaders;
 
 
@@ -22,7 +23,7 @@ abstract class ApiTestCase extends IntegrationTestCase   {
 
 		$this->failingHeaders = array(
 			'Accept: application/json',
-			'X-Api-Token: ' . $this->context->parameters['api']['secretToken'],
+			'X-Api-Token: error',
 		);
 		$this->passingHeaders = array(
 			'Accept: application/json',
@@ -31,56 +32,46 @@ abstract class ApiTestCase extends IntegrationTestCase   {
 	}
 
 	/**
-	 * Provede dotaz na API
-	 *
-	 * @param string $action API akce
-	 * @param array|NULL $query GET parametry
-	 * @param array|NULL $headers HTTP hlavičky
-	 * @param string|NULL $method HTTP metoda
-	 * @param bool $secured použít SSL
+	 * @param string $method HTTP method
+	 * @param string $action
+	 * @param array|NULL $query GET parameters
+	 * @param array|NULL $headers HTTP headers
 	 * @return \stdClass
 	 */
-	protected function sendApiRequest($method, $action, $query = NULL, $headers = NULL, $secured = NULL)
+	protected function sendApiRequest($method, $action, $query = NULL, $headers = NULL)
 	{
-		if ($secured === NULL)
-		{
-			$params = $this->context->getParameters();
-			$secured = isset($params['api']['ssl']) ? $params['api']['ssl'] : TRUE;
-		}
-
-		$wwwUrl = ($secured ? 'https://' : 'http://') . $this->context->parameters['host'];
-
-		$url = $wwwUrl . 'api/' . $action;
-		if ($method === 'GET' || $method === 'DELETE')
-		{
+		$url = $this->context->parameters['host'] . 'api/' . $action;
+		if ($method === 'GET' || $method === 'DELETE') {
 			$query['testDbName'] = $this->context->parameters['testDbName'];
 			$url .= ($q = http_build_query($query)) ? ('?' . $q) : '';
 			$data = NULL;
-		}
-		else
-		{
+		} else {
 			$url .= '?' . 'testDbName=' . $this->context->parameters['testDbName'];
 			$data = $query = Json::encode($query);
 		}
 
+		if (!$headers) {
+			$headers = $this->passingHeaders;
+		}
+
 		$curl = curl_init($url);
-		curl_setopt_array($curl, array(
-			CURLOPT_CUSTOMREQUEST  => $method,
-			CURLOPT_HTTPHEADER     => $headers ?: array(),
-			CURLOPT_POSTFIELDS     => $data,
+		curl_setopt_array($curl, [
+			CURLOPT_CUSTOMREQUEST => $method,
+			CURLOPT_HTTPHEADER => $headers ?: [],
+			CURLOPT_POSTFIELDS => $data,
 			CURLOPT_SSL_VERIFYPEER => FALSE,
-			CURLOPT_HEADER         => TRUE,
+			CURLOPT_HEADER => TRUE,
 			CURLOPT_RETURNTRANSFER => TRUE,
-		));
+		]);
 		$response = explode("\r\n\r\n", curl_exec($curl), 2);
 
 		$responseHeaders = explode("\r\n", $response[0]);
-		$return = (object)array(
+		$return = (object)[
 			'code' => curl_getinfo($curl, CURLINFO_HTTP_CODE),
 			'headers' => $responseHeaders,
 			'body' => json_decode($response[1]),
 			'raw' => $response[1],
-		);
+		];
 
 		return $return;
 	}
@@ -94,8 +85,7 @@ abstract class ApiTestCase extends IntegrationTestCase   {
 	 */
 	protected function assertSuccessResponse($response, $responseCode = ApiResponse::S200_OK, $contentType = 'application/json')
 	{
-		if (isset($contentType))
-		{
+		if (isset($contentType)) {
 			$ct = 'Content-Type: ' . $contentType . '; charset=utf-8';
 			$this->assertTrue(is_numeric(array_search($ct, $response->headers)), 'Wrong response content type. "' . $contentType . '" was expected');
 		}
