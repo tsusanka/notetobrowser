@@ -1,10 +1,10 @@
 
 INSERT INTO `users` (`id`, `hash`, `registered_at`) VALUES
-(1, '4cf9cad0853e207fc63c21424bcb4cf4fbe5fbee', NOW()),
-(2, '8f74c34fd2258e5eff460a2dc99e1a9dfc193f97', NOW()),
-(3, 'b12fa4c5c92c3e40eb83c54eee4fe367070e767d', NOW()),
-(4, 'd5288a60c4b939bff1429434c0fa1d594f3f3189', NOW()),
-(5, '3775c17ab895fe946d3f6ed8cf628e74f484eef5', NOW());
+(1, 'ec9887cc341ab3f5bf5e6a14ff56c9c5aeb2b4b8d99557e406a456e4e029fd1e', NOW()),
+(2, 'f30c2afefcc4a8adf7ac7a0db082e298f978911e2cae4e0b4aa36103399e69f3', NOW()),
+(3, '0263829989b6fd954f72baaf2fc64bc2e2f01d692d4de72986ea808f6e99813f', NOW()),
+(4, 'ff304d19e8233ac9117fef9eb247a8fb4751f5f6a6237a41ccc13440f8c6cda4', NOW()),
+(5, '98a3818f67fc20fe9af17bebf32ce482e43a32ab3c979e48849efcad8b69ac13', NOW());
 
 INSERT INTO `notes` (`content`, `created_at`, `user_id`) VALUES
 ('eur', NOW(), '1'),

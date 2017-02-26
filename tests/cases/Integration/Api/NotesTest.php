@@ -22,7 +22,7 @@ class NotesTest extends ApiTestCase
 	{
 		$response = $this->sendApiRequest('POST', 'notes', [
 			'content' => 'Lorem ipsum',
-			'user' => '4cf9cad0853e207fc63c21424bcb4cf4fbe5fbee',
+			'user' => '98a3818f67fc20fe9af17bebf32ce482e43a32ab3c979e48849efcad8b69ac13',
 		]);
 		$this->assertSuccessResponse($response, ApiResponse::S201_CREATED);
 

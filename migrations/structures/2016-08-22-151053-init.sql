@@ -1,10 +1,10 @@
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `hash` varchar(255) NOT NULL,
+  `hash` varchar(64) NOT NULL,
   `registered_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UNIQ_8D93D649D1B862B8` (`hash`)
+  UNIQUE KEY `UNIQ_HASH` (`hash`)
 );
 
 CREATE TABLE `notes` (
@@ -13,6 +13,6 @@ CREATE TABLE `notes` (
   `created_at` datetime NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `IDX_CFBDFA14A76ED395` (`user_id`),
-  CONSTRAINT `FK_CFBDFA14A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  KEY `IDX_USER` (`user_id`),
+  CONSTRAINT `FK_USER` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 );
